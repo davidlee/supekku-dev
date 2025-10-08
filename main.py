@@ -196,7 +196,7 @@ idea.
 
 ---
 
-''')),P(Img(alt="diagram", src="public/assets/img/supekko-in-a-picture.png")))
+''')),P(Img(alt="diagram", src="/assets/img/supekko-in-a-picture.png")))
 
 
 serve()

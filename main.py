@@ -147,8 +147,8 @@ them back into the spec if they're relevant, but continue and adapt, as long as
 it still holds overall.
 
 Then when your'e done implementing, you run a lightweight audit. Verify the
-spec against the code, make sure it's accurate and thorough enough you could
-recreate the code if you needed to.
+spec against the changed code, make sure it's accurate and thorough enough you could
+recreate it if you needed to.
 
 It's no more than you're already doing as "research", but this way you can keep
 your view of the entire codebase current.

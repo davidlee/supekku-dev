@@ -194,8 +194,9 @@ make changes at any scale you want.
 is to me. We've been standing here the whole time. I'm just explaining a better
 idea.
 
+---
 
-''')))
+''')),P(Img(alt="diagram", src="public/assets/img/supekko-in-a-picture.png")))
 
 
 serve()

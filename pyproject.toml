@@ -1,0 +1,17 @@
+[project]
+name = "supekku-dev"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "htmx>=0.0.0",
+    "just>=0.8.165",
+    "mistune>=3.1.4",
+    "python-fasthtml",
+    "uvicorn>=0.37.0",
+]
+
+[tool.ruff]
+fixable = ["ALL"]
+ignore = ["E402"]

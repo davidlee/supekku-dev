@@ -65,8 +65,11 @@ every time you want to make a plan?
 
 **Q**: Right. So ... you're kinda flying blind when it comes to everything else?
 
-**A**: Not really, I mean you know enough from the specs - yeah, whatever, with
-some caveats. The point is, it works fine as long as you work the way the
+**A**: Well, if you just build everything as disposable microservices -
+
+**Q**: Look, I get the appeal, I really do. But no.
+
+**A**: Alright, fine. The point is, it works fine as long as you work the way the
 system kind of wants you to work.
 
 **Q**: So how's that ... kinda like waterfall?
@@ -89,36 +92,37 @@ requirements still hold? Don't you risk them bulldozing through the old
 stuff whenever they build something new?
 
 **A**: Well, you have the tests. And if you're diligent with your research, you
-can pull most of the important context into the implementation plan.
+can pull most of the important context into the implementation plan. Or, you
+know. Microservices.
 
 **Q**: Right. I mean, I'm sure it can work, but is that really the best we can
 do?
 
-**A**: I kinda get where you're coming from, but this has been an unsolved
-problem in software ... basically forever. And probably everything that's tried
-to solve it so far has been worse, except probably Literate Programming, which
-I'm sure is amazing, if your coworkers are Donald Knuth instead of a stochastic
-mythomaniac chatbot.
+**A**: I kinda get where you're coming from, but this very thing has been an
+unsolved problem in software ... basically forever. And probably everything
+that's tried to solve it so far has been worse, except Literate Programming,
+which I'm sure is amazing if your coworkers are Donald Knuth instead of a
+stochastic mythomaniac chatbot.
 
-**Q**: But ... look, what if you invert the model?
+**Q**: But ... ok. What if you ... invert the model?
 
-**A**: But we already have, see? Spec-driven development is about making the
-code serve the specifications -
+**A**: But that's exactly what it does! Spec-driven development is about making
+the code serve the specifications -
 
 **Q**: Sure, until you finish implementing them - then you're back to software
-archaeology. Look, I got an idea. Mind if we swap for a sec?
+archaeology. Nah. Look, I got an idea. Mind if we swap for a sec?
 
 **A**: Uhh. Sure.
 
 ---
 
-**A**: Ok. Say we start by _keeping_ the specs. Make them evergreen.
+**A**: Ok. So we start by _keeping_ the specs. Make them evergreen.
 
-**Q**: We already do?
+**Q**: We ... already do?
 
 **A**: No, not piled up in the evidence locker, so you can dig through their detritus.
 
-**Q**: How then?
+**Q**: How, then?
 
 **A**: You treat them as the actual system of truth - not something disposable
 after they've hit the main branch. They have to be able to change.
@@ -127,7 +131,7 @@ after they've hit the main branch. They have to be able to change.
 our first spec, for a static landing page. We've built a plan, gotten it done
 and tests pass. Now we've gotta add login and a member area. What now?
 
-**A**: Have your changes to the spec produce the implementation plan - collect
+**A**: Have your _changes_ to the spec produce the implementation plan - collect
 the delta, assemble enough surrounding context to produce a design doc, and
 massage it into shape. Then break down the work and add verification steps like
 you're used to.
@@ -138,9 +142,9 @@ agent fuckups along the way?
 
 **A**: You said agents were pretty efficient at researching the codebase. So,
 we add process hooks along the way to document and upstream anything important:
-decisions, adaptations, issues, when you wrap up each phase of the plan.
-Feed them back into the spec if they're relevant, but continue and adapt the
-plan, as long as it still holds overall.
+decisions, adaptations, issues, when you wrap up each phase of the plan. Feed
+them back into the spec if they're relevant, but continue and adapt, as long as
+it still holds overall.
 
 Then when your'e done implementing, you run a lightweight audit. Verify the
 spec against the code, make sure it's accurate and thorough enough you could
@@ -149,7 +153,7 @@ recreate the code if you needed to.
 It's no more than you're already doing as "research", but this way you can keep
 your view of the entire codebase current.
 
-**Q**: So this one spec just gets bigger and bigger with each change?
+**Q**: So ... this one spec just gets bigger and bigger with each change?
 
 **A**: Do I look like a moron? Of course not. Split it up however you like.
 Keep product your requirements, high level views of subsystems, and drill down
@@ -165,22 +169,23 @@ bundle what's applicable to the changes.
 you're touching?
 
 **A**: No ... no. track what's made a roundtrip to mainline within each spec.
-Mark up the SHA refs, or just use checkboxes. Or just collect the SHAs where
-the spec changes you want to ship occurred, if you're ok with a slightly blunt
+Mark up the SHA refs, or just use checkboxes. Or just collect the SHAs with
+the spec changes you want to ship, if you're ok with a slightly blunt
 instrument. The actual mechanics aren't hard, if you can write a prompt.
 
 When you want to implement some set of changes, you create a Delta (just a
 markdown doc) to represent it: collect all the specs that apply, list the
-requirements with their IDs, link everything, and elaborate the design changes
-to ensure they're coherent. This is the implementation guide for agents, and
-you review it carefully, just like you would your feature spec.
+requirements with their IDs, link everything up in the frontmatter, and
+elaborate the design changes to ensure they're coherent. This is the
+implementation guide for agents, and you review it carefully, just like you
+would your feature spec.
 
 Then you build an Implementation Plan the same way you're used to.
 
 **Q**: Isn't that all a bit complicated? You have to stitch together context from
 a bunch of different interlinked specs ...
 
-**A**: Man, I'm not doing it, I'm way too lazy. An agent manage it just fine,
+**A**: Man, I'm not doing it, I'm way too lazy. An agent can manage it just fine,
 though.
 
 It's just: kick off a canned prompt, make sure the inputs are correct and the
@@ -197,7 +202,9 @@ design as usual, until it's a reasonable plan.
 up to date; you can use it to derive the code. You can actually trust it,
 understand the entire system with it. You can change it, and have your
 modifications flow into implementation, and integrate adaptations made along
-the way. And you can make changes at any scale you want.
+the way. And you can make changes at any scale you want. You could even build
+something bigger than you can afford to just throw away and boil the South
+Pacific to regenerate.
 
 **Q**: Uh huh. And I suppose you've done this already?
 

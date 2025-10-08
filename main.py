@@ -85,35 +85,34 @@ sense.
 
 **Q**: So how do you make sure when you're building out a new feature, that all
 the specs from the previous ones are taken into consideration and their
-requirements still hold? Don't you risk having them ... build the new feature
-without accounting for previous work?
+requirements still hold? Don't you risk them bulldozing through the old
+stuff whenever they build something new?
 
-**A**: Well, you have the test suite. And if you're diligent with your
-research, you can pull most of the important context into the implementation
-plan.
+**A**: Well, you have the tests. And if you're diligent with your research, you
+can pull most of the important context into the implementation plan.
 
-**Q**: Ok. Sounds like it can work ... but that it's fundamentally a massive
-hack?
+**Q**: Right. I mean, I'm sure it can work, but is that really the best we can
+do?
 
-**A**: Sure, I kinda get where you're coming from, but this has been an
-unsolved problem in software ... basically forever. And probably everything
-that's tried to solve it so far has been worse, except probably Literate
-Programming, which is probably amazing if your coworkers are Donald Knuth
-instead of a stochastic mythomaniac chatbot.
+**A**: I kinda get where you're coming from, but this has been an unsolved
+problem in software ... basically forever. And probably everything that's tried
+to solve it so far has been worse, except probably Literate Programming, which
+I'm sure is amazing, if your coworkers are Donald Knuth instead of a stochastic
+mythomaniac chatbot.
 
-**Q**: Right. But what if you invert the model?
+**Q**: But ... look, what if you invert the model?
 
 **A**: But we already have, see? Spec-driven development is about making the
-specs the main thing -
+code serve the specifications -
 
-**Q**: Until you archive them and use the code as the system of truth? Hey
-look, I got an idea. Mind if we swap for a sec?
+**Q**: Sure, until you finish implementing them - then you're back to software
+archaeology. Look, I got an idea. Mind if we swap for a sec?
 
-**A**: Uh. Sure.
+**A**: Uhh. Sure.
 
 ---
 
-**A**: Ok. So why don't we start by _keeping_ the spec. Make it ... evergreen.
+**A**: Ok. Say we start by _keeping_ the specs. Make them evergreen.
 
 **Q**: We already do?
 
@@ -121,82 +120,96 @@ look, I got an idea. Mind if we swap for a sec?
 
 **Q**: How then?
 
-**A**: First, you treat it as the actual system of truth - not something
-disposable after it's done.
+**A**: You treat them as the actual system of truth - not something disposable
+after they've hit the main branch. They have to be able to change.
 
-**Q**: Well that sounds nice. But how's it work? Say we've written our first
-spec, for a static landing page. We've built a plan, gotten it done and tests
-pass. Now we've gotta add login and a member area. What now?
+**Q**: Well, that sounds nice. But how's it supposed to work? Say we've written
+our first spec, for a static landing page. We've built a plan, gotten it done
+and tests pass. Now we've gotta add login and a member area. What now?
 
-**A**: Right. You change it. Have the changes to the spec drive the plan -
-collect the delta, wrap it in enough context to turn it into an imperative
-patch. Then break down the work and add verification steps like you're used
-to.
+**A**: Have your changes to the spec produce the implementation plan - collect
+the delta, assemble enough surrounding context to produce a design doc, and
+massage it into shape. Then break down the work and add verification steps like
+you're used to.
 
-**Q**: Spec's gonna drift though. How can it be the system of truth when it
-doesn't reflect all the detours and adaptations and agent fuckups along the
-way?
+**Q**: Spec's gonna drift out of alignment with the code, though. How can it be
+the system of truth when it doesn't reflect all the detours and adaptations and
+agent fuckups along the way?
 
 **A**: You said agents were pretty efficient at researching the codebase. So,
 we add process hooks along the way to document and upstream anything important:
-decisions, adaptations, issues. When you wrap each phase of your plan.
-Incrementally feed them back into the spec if they're relevant, but continue
-and adapt the plan, as long as it still holds overall.
+decisions, adaptations, issues, when you wrap up each phase of the plan.
+Feed them back into the spec if they're relevant, but continue and adapt the
+plan, as long as it still holds overall.
 
-Then when the plan's done, you run an audit. Verify the spec against the code,
-make sure it's accurate and thorough enough you could regenerate the code
-if you needed to.
+Then when your'e done implementing, you run a lightweight audit. Verify the
+spec against the code, make sure it's accurate and thorough enough you could
+recreate the code if you needed to.
 
-**Q**: So this spec just gets bigger and bigger with each change?
+It's no more than you're already doing as "research", but this way you can keep
+your view of the entire codebase current.
 
-**A**: Do I look like a moron? Of course not. Split it up, relationally. Use
-markdown frontmatter and ids. We could use the C4 model terms for specs at
-different levels of abstraction - most code probably has more than one
-applicable spec, and that's fine.
+**Q**: So this one spec just gets bigger and bigger with each change?
 
-**Q**: How so?
+**A**: Do I look like a moron? Of course not. Split it up however you like.
+Keep product your requirements, high level views of subsystems, and drill down
+into details for every file or module. Markdown frontmatter and ids to link them
+are all you need.
 
-**A**: Track what has & hasn't made a roundtrip to mainline for each spec,
-using git SHA refs.
+Most of the time a given file's going to have more than one spec that applies,
+at different levels of abstraction - and that's fine, as long as you have a few
+conventions (give your requirements IDs, for instance). Just have an agent
+bundle what's applicable to the changes.
 
-When you want to implement some set of changes, you create a Delta (a markdown
-artefact) to represent it: collect all the specs that apply, explicitly
-reference the changed elements, and elaborate the design changes to ensure
-they're coherent and act as a guide to details in the linked specs. It'll act
-as the implementation guide for agents, and you review it carefully just like
-you would your feature spec.
+**Q**: So what, everything in every spec that applies, for every bit of code
+you're touching?
+
+**A**: No ... no. track what's made a roundtrip to mainline within each spec.
+Mark up the SHA refs, or just use checkboxes. Or just collect the SHAs where
+the spec changes you want to ship occurred, if you're ok with a slightly blunt
+instrument. The actual mechanics aren't hard, if you can write a prompt.
+
+When you want to implement some set of changes, you create a Delta (just a
+markdown doc) to represent it: collect all the specs that apply, list the
+requirements with their IDs, link everything, and elaborate the design changes
+to ensure they're coherent. This is the implementation guide for agents, and
+you review it carefully, just like you would your feature spec.
 
 Then you build an Implementation Plan the same way you're used to.
 
-**Q**: Isn't that kind of complicated? You have to stitch together context from
+**Q**: Isn't that all a bit complicated? You have to stitch together context from
 a bunch of different interlinked specs ...
 
-**A**: No, I'm way too lazy. An agent can do that just fine.
+**A**: Man, I'm not doing it, I'm way too lazy. An agent manage it just fine,
+though.
 
-I just kick off a command, make sure the inputs are correct and the changes
-belong together, and then argue about the technical design until it's reasonable.
+It's just: kick off a canned prompt, make sure the inputs are correct and the
+changes make sense together, and then argue with robot about the technical
+design as usual, until it's a reasonable plan.
 
 **Q**: What if you need to change the specs to make the design work?
 
-**A**: Yes.
+**A**: Of course. Revise them, and update the Delta.
 
 **Q**: Ok. And the benefit of all this is ... ?
 
-**A**: Well, doing what you claimed earlier: primacy of the Spec. It's up to
-date; you can use it to derive the code. You can actually trust it, understand
-the entire system with it. You can change it, and have your modifications flow
-into implementation, and integrate adaptations made along the way. And you can
-make changes at any scale you want.
+**A**: Well, actually doing what you claimed earlier: primacy of the Spec. It's
+up to date; you can use it to derive the code. You can actually trust it,
+understand the entire system with it. You can change it, and have your
+modifications flow into implementation, and integrate adaptations made along
+the way. And you can make changes at any scale you want.
 
-**Q**: Uh huh. And you've done this already?
+**Q**: Uh huh. And I suppose you've done this already?
 
-**A**: Dude, are you drunk? You literally just explained what Spec-Driven Development
-is to me. We've been standing here the whole time. I'm just explaining a better
-idea.
+**A**: Are you drunk? You literally just explained what Spec-Driven Development
+is to me. We've been talking here for exactly as long as I've known about it.
+I'm just explaining how to improve it.
 
 ---
 
-''')),P(Img(alt="diagram", src="/assets/img/supekko-in-a-picture.png")))
+''')),
+    P(Img(alt="diagram", src="/assets/img/supekko-in-a-picture.png")),
+    P(A("spec-kit",href="https://github.com/github/spec-kit/blob/main/spec-driven.md")))
 
 
 serve()

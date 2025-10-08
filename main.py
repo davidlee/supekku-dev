@@ -99,7 +99,7 @@ know. Microservices.
 do?
 
 **A**: I kinda get where you're coming from, but the exact thing you've got a
-problew with has been an unsolved problem in software ... basically forever.
+problem with has been an unsolved problem in software ... basically forever.
 And probably everything that's tried to solve it so far has been worse, except
 Literate Programming, which I'm sure is amazing if your coworkers are Donald
 Knuth instead of a stochastic mythomaniac chatbot.

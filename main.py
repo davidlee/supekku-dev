@@ -5,9 +5,9 @@ app,rt = fast_app()
 
 @rt('/')
 def get():
-    return Titled("Supekku.dev", Div(P("don't disembowel yourself"),P(A('ok.',href="/1"))))
+    return Titled("Supekku.dev", Div(P("if you came here looking for ritual self-disembowellment, you have a typo"),P(A("ok. What's a spec?",href="/spec-driven-development"))))
 
-@rt('/1')
+@rt('/spec-driven-development')
 def get():
     return Titled("Supekku.dev", NotStr(mistune.html(
 '''

@@ -3,15 +3,15 @@ user.shape: person
 
 spec: Spec
 spec.style.multiple: true
+spec: {
+  requirements.style.multiple: true
+  contracts.style.multiple: true
+}
 
-# rev1: Revision
-# rev1.shape: page
-# rev1: {style.fill: '#ffe'}
-#
 rev2: Revision
 rev2.shape: page
 rev2: {style.fill: '#ffe'}
-#
+
 delta: Delta
 delta: {style.fill: '#fee'}
 
@@ -24,6 +24,11 @@ delta: {
   IP: {style.fill: '#fcfcdf'}
   IP.shape: page
 
+  IP: {
+    phase 1: {style.fill: '#eee'}
+    phase 2: {style.fill: '#eee'}
+    phase 3: {style.fill: '#eee'}
+  }
   IP -> DA
 }
 
@@ -34,45 +39,20 @@ codebase: {
 }
 
 audit: Audit {style.fill: '#fef0fe'}
-audit.shape: page
-audit: {
-  ast: static analysis
-  agent: research agent
-}
-# audit.near: center-right
-# ---
+audit.shape: parallelogram
+audit
 
-rev2 -> spec: applies changes
-rev2 -> spec: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
+rev2 -> spec: update
 
-#
-# 1. design
-#
-user -> delta: "1. designs" {style.font-color: black; style.bold: true}
+delta -> spec.requirements: implements {style.stroke: '#777'; target-arrowhead.shape: circle}
 
-spec -> delta: informs {style.stroke: '#ccc'}
-delta -> spec: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
-spec -> codebase.component: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
-spec -> codebase.tests: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
+user -> delta.DA: "1. specify" {style.font-color: black; style.bold: true}
+user -> delta.IP: "2. plan" {style.font-color: black; style.bold: true}
+user -> audit: "3. verify" {style.font-color: black; style.bold: true}
+user -> rev2: "4. apply" {style.font-color: black; style.bold: true}
 
-#
-# plan the work
-#
+delta -> codebase: change
 
-user -> delta: "2. plans implementation" {style.font-color: black; style.bold: true}
-#
-# supervise implemantation
-#
-
-delta -> codebase: implements
-
-#
-# verify
-#
-user -> audit: "3. verifies implementation" {style.font-color: black; style.bold: true}
-
-audit -> codebase: verifies
-audit -> spec: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
-audit -> rev2: {label: 'records changes'}
-audit -> delta: {style: {stroke: '#ccc'; stroke-dash: 3}; label: 'amends'}
-audit -> delta.DA: references {style: {stroke: '#ccc'}; target-arrowhead.shape: circle}
+audit -- codebase: {style.stroke: '#777'; style.stroke-dash: 3}
+audit -- delta.IP: {style.stroke: '#777'; style.stroke-dash: 3}
+codebase -> spec.contracts: "generate"

@@ -1,0 +1,78 @@
+user: User
+user.shape: person
+
+spec: Spec
+spec.style.multiple: true
+
+# rev1: Revision
+# rev1.shape: page
+# rev1: {style.fill: '#ffe'}
+#
+rev2: Revision
+rev2.shape: page
+rev2: {style.fill: '#ffe'}
+#
+delta: Delta
+delta: {style.fill: '#fee'}
+
+delta: {
+  DA: Design Artefact
+  DA: {style.fill: '#efe'}
+  DA.shape: page
+
+  IP: Implementation Plan
+  IP: {style.fill: '#fcfcdf'}
+  IP.shape: page
+
+  IP -> DA
+}
+
+codebase: Codebase
+codebase: {
+  component
+  tests
+}
+
+audit: Audit {style.fill: '#fef0fe'}
+audit.shape: page
+audit: {
+  ast: static analysis
+  agent: research agent
+}
+# audit.near: center-right
+# ---
+
+rev2 -> spec: applies changes
+rev2 -> spec: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
+
+#
+# 1. design
+#
+user -> delta: "1. designs" {style.font-color: black; style.bold: true}
+
+spec -> delta: informs {style.stroke: '#ccc'}
+delta -> spec: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
+spec -> codebase.component: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
+spec -> codebase.tests: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
+
+#
+# plan the work
+#
+
+user -> delta: "2. plans implementation" {style.font-color: black; style.bold: true}
+#
+# supervise implemantation
+#
+
+delta -> codebase: implements
+
+#
+# verify
+#
+user -> audit: "3. verifies implementation" {style.font-color: black; style.bold: true}
+
+audit -> codebase: verifies
+audit -> spec: {style.stroke: '#ccc'; target-arrowhead.shape: circle}
+audit -> rev2: {label: 'records changes'}
+audit -> delta: {style: {stroke: '#ccc'; stroke-dash: 3}; label: 'amends'}
+audit -> delta.DA: references {style: {stroke: '#ccc'}; target-arrowhead.shape: circle}

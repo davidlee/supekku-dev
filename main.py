@@ -215,7 +215,7 @@ I'm just explaining how to improve it.
 ---
 
 ''')),
-    P(Img(alt="diagram", src="/assets/img/supekko-in-a-picture.png")),
+    P(Img(alt="diagram", src="/assets/img/simple.svg")),
     P(A("spec-kit",href="https://github.com/github/spec-kit/blob/main/spec-driven.md")))
 
 
